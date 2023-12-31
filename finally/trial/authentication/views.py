@@ -7,6 +7,8 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from django.template import loader
 from django.http import HttpResponse
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 @api_view(['POST'])
 def login(request):
@@ -39,3 +41,8 @@ from rest_framework.permissions import IsAuthenticated
 def test_token(request):
 
     return Response("passed for {}".format(request.user.email))
+
+@api_view(['GET'])
+def logout(request):
+    logout(request)
+    return redirect("login")
